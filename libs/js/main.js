@@ -206,13 +206,55 @@ function adminAuthorization() {
 }
 
 function editModeOn() {
-    
     console.log("edit mode on ")
     $('#tableHeader').append('<th onclick="toggleModifyDatabase()"><i class="fas fa-plus-circle fa-lg"></i></th>')
     $('#database').find('tr').each(function(){
         $(this).find('td').eq(4).after(`<td class="deleteEmployee"  onclick="toggleAreYouSure('remove this employee?', 'deleteEmployee()')"><i class="fas fa-minus-circle fa-lg"></i></td>`);
+    });    
+}
+
+
+function editModeOff() {
+
+    console.log("edit mode off")
+    $('#tableHeader th').last().remove()
+    $('#database').find("tr").each(function() {
+        $(this).children("td:eq(5)").remove();
     });
 
-   
+}
+
+function loadProfile(profile) {
+    $('#profilePage').css("display", "block")
+
+    $('#displayName').children().text(`${profile.firstName}  ${profile.lastName}`)
+    $('#id').text(profile.id)
+    $('#firstName').text(profile.firstName)
+    $('#lastName').text(profile.lastName)
+    $('#jobTitle').text(profile.jobTitle)
+    $('#email').text(profile.email)
+    $('#department').text(profile.department)
+    $('#location').text(profile.location)
+
+    if ($('#editModeToggle').prop('checked') == true) {
+        updateProfile()
+    }
     
+}
+
+function returnToTable() {
+
+    $('#profilePage').css("display", "none")
+}
+
+function toggleProfileUpdate() {
+ 
+    if ($('#updateButton').text() == "Update") {
+        $('#adminAuthorization').css('display', 'block')
+        editModeOn()
+        updateProfile()
+
+    }   else {  // "Save" button is pressed
+        saveProfile()
+    }
 }
