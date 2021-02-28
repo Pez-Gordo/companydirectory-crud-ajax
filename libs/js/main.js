@@ -178,3 +178,41 @@ function reset() {
     buildTable()
 }
 
+function editModeToggle() {
+
+    if ($('#editModeToggle').prop('checked') == true) {
+        $('#adminAuthorization').css('display', 'block')
+        editModeOn()
+    } else {
+        editModeOff()
+    }
+}
+
+function adminAuthorization() {
+    var password = $('#adminPassword').val()
+    $('#adminAuthorization').css('display', 'none')
+
+    if (password == "password") {
+        $('#editModeToggle').prop('checked', true);
+        $('#passwordResponse').text("")
+        
+    }   else {
+        $('#editModeToggle').prop('checked', false);
+        $('#passwordResponse').text("Incorrect, Try Again")
+        editModeOff()
+        
+        $('#adminAuthorization').show()
+    }
+}
+
+function editModeOn() {
+    
+    console.log("edit mode on ")
+    $('#tableHeader').append('<th onclick="toggleModifyDatabase()"><i class="fas fa-plus-circle fa-lg"></i></th>')
+    $('#database').find('tr').each(function(){
+        $(this).find('td').eq(4).after(`<td class="deleteEmployee"  onclick="toggleAreYouSure('remove this employee?', 'deleteEmployee()')"><i class="fas fa-minus-circle fa-lg"></i></td>`);
+    });
+
+   
+    
+}
