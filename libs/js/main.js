@@ -1,13 +1,17 @@
 window.addEventListener("scroll", preventMotion, false);
 window.addEventListener("touchmove", preventMotion, false);
 
-function preventMotion(event) {
-    window.scrollTo(0, 0)
-    event.preventDefault()
-    event.stopPropagation()
+function preventMotion(event)
+{
+    window.scrollTo(0, 0);
+    event.preventDefault();
+    event.stopPropagation();
 }
 
-let employeeID
+
+// Global Variables
+
+let employeeID;
 
 let profile = {
     firstName: "",
@@ -19,10 +23,11 @@ let profile = {
 }
 
 $(document).ready(function() {
-    buildTable()
+    buildTable();
 })
 
 function clearTable() {
+
     $('#database').html(`
     <tbody>
         <tr id="tableHeader">
@@ -53,18 +58,24 @@ function appendEntry(db, i, filterBy) {
 }
 
 function buildTable() {
+
     $.ajax({
         type: 'GET',
-        url: 'libs/php/getAll.php',
+        url: 'libs/php/getAll.php', 
         dataType: 'json',
         success: function(data) {
-            var db = data.data
-            var numberOfEntries = 0
+
+            var db = data.data;
+
+            var numberOfEntries = 0;
+
             for (let i in db) {
                 appendEntry(db, i)
                 numberOfEntries++
             }
+
             $('#numberOfEntries').html(numberOfEntries)
+
         }
     })
 }
@@ -104,7 +115,6 @@ function contains(db, i, filterBy, searchText) {
     }
     return 0;
 }
-
 
 function equals(db, i, filterBy, searchText) {
 
@@ -206,13 +216,16 @@ function adminAuthorization() {
 }
 
 function editModeOn() {
+    
     console.log("edit mode on ")
     $('#tableHeader').append('<th onclick="toggleModifyDatabase()"><i class="fas fa-plus-circle fa-lg"></i></th>')
     $('#database').find('tr').each(function(){
         $(this).find('td').eq(4).after(`<td class="deleteEmployee"  onclick="toggleAreYouSure('remove this employee?', 'deleteEmployee()')"><i class="fas fa-minus-circle fa-lg"></i></td>`);
-    });    
-}
+    });
 
+   
+    
+}
 
 function editModeOff() {
 
@@ -258,7 +271,6 @@ function toggleProfileUpdate() {
         saveProfile()
     }
 }
-
 
 function updateProfile() {
 
@@ -320,11 +332,15 @@ function saveProfile() {
         entry.replaceWith(`<span class='col-7 col-sm-6' id='${id}'>${profile[id]}</span>`)
         
     }
+
     $('#displayName').children().text(`${profile.firstName} ${profile.lastName}`)
+
     updateEmployee()
+
 }
 
-// Overlays
+
+// Toggle Overlays
 
 function toggleModifyDatabase() {
     if ($('#modifyDatabase').css('display') == "none") {
@@ -374,7 +390,6 @@ function toggleAreYouSure(message, func) {
 
     }
 }
-
 
 function toggleAddEmployee() {
     if ($('#addEmployeeOverlay').css('display') == "none") {
@@ -438,8 +453,8 @@ function toggleRemoveLocation() {
     }
 }
 
-// SQL and PHP calls
 
+// SQL + PHP Calls
 
 function addEmployee() {
 
@@ -638,4 +653,3 @@ function populateSelectOptions(category, selectID) {
         })
     }); 
 }
-
