@@ -22,6 +22,21 @@ $(document).ready(function() {
     buildTable()
 })
 
+function clearTable() {
+    $('#database').html(`
+    <tbody>
+        <tr id="tableHeader">
+            <th scope="col" class="hideCell" >ID</th>
+            <th scope="col">Display Name</th>
+            <th scope="col" class="hideCell" id="jobTitleHeader">Job Title</th>
+            <th scope="col" class="hideCell">Email</th>
+            <th scope="col" class="hideCell" id="departmentHeader">Department</th>
+            <th scope="col" class="hideCell" id="locationHeader">Location</th>
+        </tr>
+    </tbody>
+    `)
+}
+
 function buildTable() {
     $.ajax({
         type: 'GET',
