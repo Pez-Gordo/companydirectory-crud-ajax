@@ -37,6 +37,21 @@ function clearTable() {
     `)
 }
 
+function appendEntry(db, i, filterBy) {
+
+    $('#database tbody').append(`
+        <tr onclick="loadProfile(${JSON.stringify(db[i]).split('"').join("&quot;")})">
+            <th class="hideCell">${db[i].id}</th>
+            <td><b>${db[i].lastName}</b>, ${db[i].firstName}</td>
+            <td class=${(filterBy == "jobTitle") ? "" : "hideCell"}>${db[i].jobTitle}</td>
+            <td class="hideCell">${db[i].email}</td>
+            <td class=${(filterBy == "department") ? "" : "hideCell"}>${db[i].department}</td>
+            <td class=${(filterBy == "location") ? "" : "hideCell"}>${db[i].location}</td>
+        </tr>
+    `)
+
+}
+
 function buildTable() {
     $.ajax({
         type: 'GET',
