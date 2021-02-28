@@ -191,7 +191,7 @@ function reset() {
 function editModeToggle() {
 
     if ($('#editModeToggle').prop('checked') == true) {
-        $('#adminAuthorization').css('display', 'block')
+        //$('#adminAuthorization').css('display', 'block')
         editModeOn()
     } else {
         editModeOff()
