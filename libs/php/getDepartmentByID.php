@@ -25,13 +25,9 @@
 		
 		mysqli_close($conn);
 
-		echo json_encode($output); 
-
 		exit;
 
 	}	
-
-	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
 
 	$query = 'SELECT id, name, locationID FROM department WHERE id = ' . $_REQUEST['id'];
 

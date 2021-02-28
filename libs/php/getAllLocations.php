@@ -1,8 +1,5 @@
 <?php
 
-	// example use from browser
-	// http://localhost/companydirectory/libs/php/insertDepartment.php?name=New%20Department&locationID=1
-
 	// remove next two lines for production
 	
 	ini_set('display_errors', 'On');
@@ -32,9 +29,7 @@
 
 	}	
 
-	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
-
-	$query = 'INSERT INTO department (name, locationID) VALUES("' . $_REQUEST['name'] . '",' . $_REQUEST["locationID"] . ')';
+	$query = 'SELECT id, name FROM location';
 
 	$result = $conn->query($query);
 	
@@ -52,12 +47,20 @@
 		exit;
 
 	}
+   
+   	$data = [];
+
+	while ($row = mysqli_fetch_assoc($result)) {
+
+		array_push($data, $row);
+
+	}
 
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data'] = [];
+	$output['data'] = $data;
 	
 	mysqli_close($conn);
 
