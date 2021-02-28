@@ -320,9 +320,59 @@ function saveProfile() {
         entry.replaceWith(`<span class='col-7 col-sm-6' id='${id}'>${profile[id]}</span>`)
         
     }
-
     $('#displayName').children().text(`${profile.firstName} ${profile.lastName}`)
-
     updateEmployee()
-
 }
+
+// Overlays
+
+function toggleModifyDatabase() {
+    if ($('#modifyDatabase').css('display') == "none") {
+        $('#modifyDatabase').css('display', 'block')
+    } else {
+        $('#modifyDatabase').css('display', 'none')
+    }
+}
+
+function toggleAreYouSure(message, func) {
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+
+    employeeID = $(e.target).closest("tr").find("th").text()
+
+    if ($('#areYouSure').css('display') == "none") {
+
+        $('#areYouSure').show()
+        $('#areYouSureQuestion').show()
+        $('#areYouSureResponse').hide()
+
+        let employeeDepartmentOrLocation = capitalizeFistLetter(message.split(" ")[2].slice(0,-1))
+
+        let addOrRemove = capitalizeFistLetter(message.split(" ")[0])
+        addOrRemove == "Add" ? addOrRemove += "ed" : addOrRemove += "d"
+
+        $('#areYouSureMessage').text(message)
+        $('#areYouSureButton').attr('onClick', `
+            ${func.toString()};
+
+            $('#areYouSureQuestion').hide()
+            $('#areYouSureResponse').show()
+
+            $('#areYouSureResponseMessage').text('${employeeDepartmentOrLocation} ${addOrRemove}')
+
+            setTimeout(() => {
+                $('#areYouSure').hide();
+            }, 1500)
+            
+        `)
+
+
+    } else {
+        
+        $('#areYouSure').css('display', 'none')
+
+    }
+}
+
+
