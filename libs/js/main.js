@@ -1,3 +1,23 @@
+window.addEventListener("scroll", preventMotion, false);
+window.addEventListener("touchmove", preventMotion, false);
+
+function preventMotion(event) {
+    window.scrollTo(0, 0)
+    event.preventDefault()
+    event.stopPropagation()
+}
+
+let employeeID
+
+let profile = {
+    firstName: "",
+    lastName: "",
+    jobTitle: "",
+    email: "",
+    department: "",
+    location: ""
+}
+
 $(document).ready(function() {
     buildTable()
 })
