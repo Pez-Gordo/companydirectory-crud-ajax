@@ -258,3 +258,71 @@ function toggleProfileUpdate() {
         saveProfile()
     }
 }
+
+
+function updateProfile() {
+
+    $('#updateButton').text("Save")
+
+    for (let i = 2; i < 7; i++) {
+        let entry = $('#profile').children().eq(i).children().eq(1);
+        let entryText = entry.text();
+        let id = entry.attr('id')
+
+        profile[id] = entryText;
+
+        if (i < 6) {
+
+            entry.replaceWith(`<input id='${id}' placeholder='${entryText}'>`)
+
+        }   else {
+
+            entry.replaceWith(`<select onchange="updateLocation()" id='${id}'></select>`)
+
+            var category = capitalizeFistLetter(id)
+            populateSelectOptions(category, id)
+
+            $(`#${id}`).append(`<option selected="true">${entryText}</option>`)
+   
+        }
+
+    }
+
+}
+
+function updateLocation() {
+    $.getJSON(`libs/php/getAllDepartments.php`, function (departments) {
+        let locationID = departments.data.filter(dep => dep.name == $('#department').val())[0].locationID
+
+        $.getJSON(`libs/php/getAllLocations.php`, function (locations) { 
+            let location = locations.data.filter(loc => loc.id == locationID)[0].name
+            $('#location').text(location)
+
+        })
+        
+    })
+
+}
+
+function saveProfile() {
+
+    $('#updateButton').text("Update")
+
+    for (let i = 2; i < 7; i++) {
+        let entry = $('#profile').children().eq(i).children().eq(1);
+        let entryText = entry.val();
+        let id = entry.attr('id')
+
+        if (entryText) {
+            profile[id] = entryText;
+        }
+
+        entry.replaceWith(`<span class='col-7 col-sm-6' id='${id}'>${profile[id]}</span>`)
+        
+    }
+
+    $('#displayName').children().text(`${profile.firstName} ${profile.lastName}`)
+
+    updateEmployee()
+
+}
