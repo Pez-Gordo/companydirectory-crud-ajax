@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+
 @media (max-width: 576px) {
   #header {
     font-size: 1.5em;
+    background: linear-gradient(17deg, #1e8803 0%, #b3da05 100%);
   }
   #controls {
     height: 35% !important;
@@ -34,6 +35,11 @@
   .profile {
     font-size: 0.75em !important;
   }
+
+  .row {
+    text-align: center;
+  }
+
   .profileRow {
     width: 100% !important;
   }
@@ -53,6 +59,7 @@
   }
   #footer {
     font-size: 0.7em;
+    max-height: 20px;
   }
   .hideCell {
     display: none !important;
@@ -95,9 +102,11 @@ body {
 
 #header {
   color: white;
-  height: 15%;
-  width: 80%;
+  height: 10%;
+  width: 100%;
   margin: 0;
+
+  background: linear-gradient(17deg, #1e8803 0%, #b3da05 100%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -170,8 +179,8 @@ main {
   bottom: 0;
   background: #fca311;
   background: linear-gradient(17deg, #b3da05 0%, #1e8803 100%);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: .6s;
+  transition: .6s;
 }
 
 .slider:before {
@@ -182,8 +191,8 @@ main {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: .6s;
+  transition: .6s;
 }
 
 input:checked + .slider {
@@ -210,9 +219,10 @@ input:checked + .slider:before {
 .on, .off {
   color: white;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 10px;
+  top: 25%;
+  left: 35%;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 input:checked + .slider .on {
@@ -266,7 +276,7 @@ tr:hover {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #3dce18;
+  background: linear-gradient(17deg, #1e8803 0%, #b3da05 100%);
   border: 1px solid grey;
 }
 
@@ -276,13 +286,17 @@ tr:hover {
 }
 
 .deleteEmployee {
+  font-size: xx-large;
   text-align: center;
   vertical-align: middle;
+}
+.deleteEmployee:hover {
+  color: red;
 }
 
 #footer {
   color: white;
-  height: 5%;
+  max-height: 20px;
 }
 
 .overlay {
@@ -320,8 +334,8 @@ tr:hover {
 }
 
 h2 {
-  padding-left: 40px;
-  /*margin: 0 !important;*/
+ padding-left: 40px;
+  margin-left: 40px;
 }
 
 h3 {
@@ -330,7 +344,7 @@ h3 {
 
 .profileRow {
   margin: auto !important;
-  width: 90%;
+  width: 30%;
   height: 9%;
 }
 
@@ -357,6 +371,7 @@ h3 {
 }
 
 .blueButton, .orangeButton {
+  padding: 4px;
   height: 50px;
   width: 100px;
 }
@@ -388,34 +403,7 @@ h3 {
           justify-content: center;
 }
 
-#authorizationPopup div {
-  height: 25% !important;
-  padding: 0% 10%;
-}
 
-#authorizationPopup div p:first-child {
-  padding-top: 10%;
-}
-
-#authorizationPopup div p {
-  margin: auto;
-}
-
-#exitAuthorization {
-  position: absolute;
-  right: 1%;
-  top: 1%;
-}
-
-#passwordResponse {
-  color: #ff4d00;
-}
-
-#adminSubmit {
-  background-color: white;
-  border-radius: 5px;
-  border: 2px solid grey;
-}
 
 .add {
   height: 22vh;
@@ -424,6 +412,13 @@ h3 {
   background: #6e44ff;
   background: linear-gradient(29deg, rgba(110, 68, 255, 0.2) 0%, rgba(10, 211, 255, 0.2) 100%);
   border-radius: 5px;
+}
+
+.pluma {
+  cursor: pointer;
+}
+.pluma:hover {
+  color:red;
 }
 
 .add p {
@@ -443,14 +438,7 @@ h3 {
   left: 2%;
 }
 
-.fa-plus-circle {
-  cursor: pointer;
-  color: #0AD3FF;
-}
 
-.fa-minus-circle {
-  color: #FF4D00;
-}
 
 textarea:hover,
 input:hover,
@@ -473,4 +461,15 @@ select:active,
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
 }
-/*# sourceMappingURL=main.css.map */
+
+
+
+#filterSelect {
+ /* visibility: collapse;
+  max-width: 5px;*/
+  
+}
+
+#idRow {
+  visibility: hidden;
+}

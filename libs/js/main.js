@@ -74,7 +74,7 @@ function buildTable() {
                 numberOfEntries++
             }
 
-            $('#numberOfEntries').html(numberOfEntries)
+            //$('#numberOfEntries').html(numberOfEntries)
 
         }
     })
@@ -218,9 +218,9 @@ function adminAuthorization() {
 function editModeOn() {
     
     console.log("edit mode on ")
-    $('#tableHeader').append('<th onclick="toggleModifyDatabase()"><i class="fas fa-plus-circle fa-lg"></i></th>')
+    $('#tableHeader').append('<th class="pluma" onclick="toggleModifyDatabase()">+</th>')
     $('#database').find('tr').each(function(){
-        $(this).find('td').eq(4).after(`<td class="deleteEmployee"  onclick="toggleAreYouSure('remove this employee?', 'deleteEmployee()')"><i class="fas fa-minus-circle fa-lg"></i></td>`);
+        $(this).find('td').eq(4).after(`<td class="deleteEmployee"  onclick="toggleAreYouSure('remove this employee?', 'deleteEmployee()')">-</i></td>`);
     });
 
    
