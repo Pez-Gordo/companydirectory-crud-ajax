@@ -438,5 +438,204 @@ function toggleRemoveLocation() {
     }
 }
 
+// SQL and PHP calls
 
+
+function addEmployee() {
+
+    let departmentName = $('#addEmployeeDepartment').val()
+
+    $.getJSON(`libs/php/getAllDepartments.php`, function (departments) {
+        let departmentID = departments.data.filter(dep => dep.name == departmentName)[0].id
+
+        $.ajax({
+            data: {
+                'firstName': $('#addEmployeeFirstName').val(),
+                'lastName': $('#addEmployeeLastName').val(),
+                'jobTitle': $('#addEmployeeJobTitle').val(),
+                'email': $('#addEmployeeEmail').val(),
+                'departmentID': departmentID
+            },
+            url: 'libs/php/insertEmployee.php', 
+            dataType: 'json',
+            success: function(data) {
+                
+                clearTable()
+
+                $('#addEmployeeFirstName').val("")
+                $('#addEmployeeLastName').val("")
+                $('#addEmployeeJobTitle').val("")
+                $('#addEmployeeEmail').val("")
+                $('#addEmployeeDepartment').find('option:eq(0)').prop('selected', true);
+
+                $.when($.ajax(
+                    buildTable()
+                )).then(function () {
+                    editModeOn()
+                });
+
+    
+            }
+        })
+
+    })
+    
+}
+
+
+function deleteEmployee() {
+
+    $.ajax({
+        data: {'id': employeeID},
+        url: 'libs/php/deleteEmployeeByID.php', 
+        dataType: 'json',
+        success: function(data) {
+  
+            clearTable()
+
+            $.when($.ajax(
+                buildTable()
+            )).then(function () {
+                editModeOn()
+            });
+
+        }
+    })
+}
+
+function updateEmployee() {
+
+    $.getJSON(`libs/php/getAllDepartments.php`, function (departments) {
+        let departmentID = departments.data.filter(dep => dep.name == profile.department)[0].id
+
+        $.ajax({
+            data: {
+                'id': parseInt($('#id').text()),
+                'firstName': profile.firstName,
+                'lastName': profile.lastName,
+                'jobTitle': profile.jobTitle,
+                'email': profile.email,
+                'departmentID': departmentID
+            },
+            url: 'libs/php/updateEmployee.php', 
+            dataType: 'json',
+            success: function(data) {
+
+                clearTable()
+    
+                $.when($.ajax(
+                    buildTable()
+                )).then(function () {
+                    editModeOn()
+                });
+            }
+        })
+
+    })
+}
+
+function addDepartment() {
+
+    let departmentName = $('#addDepartmentDepartment').val()
+    let locationName = $('#addDepartmentLocation').val()
+
+    $.getJSON(`libs/php/getAllLocations.php`, function (locations) {
+        let locationID = locations.data.filter(loc => loc.name == locationName)[0].id
+
+        $.ajax({
+            data: {
+                'name': departmentName,
+                'locationID': locationID,
+            },
+            url: 'libs/php/insertDepartment.php', 
+            dataType: 'json',
+            success: function(data) {
+
+                $('#addDepartmentDepartment').val("")
+                $('#addDepartmentLocation').find('option:eq(0)').prop('selected', true);
+    
+            }
+        })
+    }); 
+
+}
+
+function removeDepartment() {
+
+    let departmentName = $('#removeDepartmentDepartment').val()
+
+    $.getJSON(`libs/php/getAllDepartments.php`, function (departments) {
+        let departmentID = departments.data.filter(dep => dep.name == departmentName)[0].id
+
+        $.ajax({
+            data: {
+                'id': departmentID
+            },
+            url: 'libs/php/deleteDepartmentByID.php', 
+            dataType: 'json',
+            success: function(data) {
+
+                $('#removeDepartmentDepartment').find('option:eq(0)').prop('selected', true);
+    
+            }
+        })
+
+    }); 
+
+}
+
+function addLocation() {
+
+    let locationName = $('#addLocationLocation').val()
+
+    $.ajax({
+        data: {
+            'name': locationName
+        },
+        url: 'libs/php/insertLocation.php', 
+        dataType: 'json',
+        success: function(data) {
+
+            $('#addLocationLocation').val("")
+
+        }
+    })
+
+}
+
+function removeLocation() {
+
+    let locationName = $('#removeLocationLocation').val()
+
+    $.ajax({
+        data: {
+            'name': locationName
+        },
+        url: 'libs/php/deleteLocation.php', 
+        dataType: 'json',
+        success: function(data) {
+
+            $('#removeLocationLocation').find('option:eq(0)').prop('selected', true);
+
+        }
+    })
+    
+}
+
+
+// Misc Functions 
+
+function capitalizeFistLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+function populateSelectOptions(category, selectID) {
+    $(`#${selectID}`).empty();
+
+    $.getJSON(`libs/php/getAll${category}s.php`, function (category) {
+        $.each(category.data , function (key, entry) {
+            $(`#${selectID}`).append($('<option></option>').attr('value', entry.name).text(entry.name));
+        })
+    }); 
+}
 
