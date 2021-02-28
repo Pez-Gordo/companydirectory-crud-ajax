@@ -376,3 +376,67 @@ function toggleAreYouSure(message, func) {
 }
 
 
+function toggleAddEmployee() {
+    if ($('#addEmployeeOverlay').css('display') == "none") {
+
+        $('#addEmployeeOverlay').css('display', 'block')
+
+        let selectArr = ['Department', 'Location']
+
+        for (let i in selectArr) {
+
+            populateSelectOptions(selectArr[i],`addEmployee${selectArr[i]}`)
+            
+        }
+
+    }   else {
+
+        $('#addEmployeeOverlay').css('display', 'none')
+
+    }
+}
+
+function toggleAddDepartment() {
+    if ($('#addDepartmentOverlay').css('display') == "none") {
+        $('#addDepartmentOverlay').css('display', 'block')
+
+        populateSelectOptions('Location',"addDepartmentLocation")
+
+    } else {
+        $('#addDepartmentOverlay').css('display', 'none')
+    }
+}
+
+function toggleRemoveDepartment() {
+    if ($('#removeDepartmentOverlay').css('display') == "none") {
+        $('#removeDepartmentOverlay').css('display', 'block')
+
+        populateSelectOptions('Department',"removeDepartmentDepartment")
+
+    } else {
+        $('#removeDepartmentOverlay').css('display', 'none')
+    }
+}
+
+function toggleAddLocation() {
+    if ($('#addLocationOverlay').css('display') == "none") {
+        $('#addLocationOverlay').css('display', 'block')
+
+    } else {
+        $('#addLocationOverlay').css('display', 'none')
+    }
+}
+
+function toggleRemoveLocation() {
+    if ($('#removeLocationOverlay').css('display') == "none") {
+        $('#removeLocationOverlay').css('display', 'block')
+
+        populateSelectOptions('Location',"removeLocationLocation")
+
+    } else {
+        $('#removeLocationOverlay').css('display', 'none')
+    }
+}
+
+
+
